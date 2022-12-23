@@ -1,0 +1,159 @@
+
+PQ using comparator kaise use hoga??
+
+string to int in java
+
+Integer to string
+
+Integer.toString(a);
+
+binarysearch arraylist
+
+
+       for(int i=0;i<N;i++){
+            for(int j = 0;j<M;j++){
+                if(vis[i][j]){
+                    a.get(i).set(j,'O');
+                }
+
+
+            }
+
+
+
+***String builder faster than s1+s2 because of immuteability***
+class ReverseString {
+    public static void main(String[] args)
+    {
+        String input = "Geeks for Geeks";
+
+        StringBuilder input1 = new StringBuilder();
+
+        // append a string into StringBuilder input1
+        input1.append(input);
+
+        // reverse StringBuilder input1
+        input1.reverse();
+
+        // print reversed String
+        input1.toString()
+        System.out.println(input1);
+    }
+}
+
+
+String s="hello";
+System.out.println(s.substring(0,2)); //returns he  as a substring
+
+
+
+
+//Char to int in java
+
+
+
+
+
+//Important ArraySplit cases
+
+Example:
+
+List<Integer> numbers = new ArrayList<Integer>(
+    Arrays.asList(5,3,1,2,9,5,0,7)
+);
+
+List<Integer> head = numbers.subList(0, 4);
+List<Integer> tail = numbers.subList(4, 8);
+System.out.println(head); // prints "[5, 3, 1, 2]"
+System.out.println(tail); // prints "[9, 5, 0, 7]"
+
+Collections.sort(head);
+System.out.println(numbers); // prints "[1, 2, 3, 5, 9, 5, 0, 7]"
+
+tail.add(-1);
+System.out.println(numbers); // prints "[1, 2, 3, 5, 9, 5, 0, 7, -1]"
+If you need these chopped lists to be NOT a view, then simply create a new List from the subList. Here's an example of putting a few of these things together:
+
+// chops a list into non-view sublists of length L
+static <T> List<List<T>> chopped(List<T> list, final int L) {
+    List<List<T>> parts = new ArrayList<List<T>>();
+    final int N = list.size();
+    for (int i = 0; i < N; i += L) {
+        parts.add(new ArrayList<T>(
+            list.subList(i, Math.min(N, i + L)))
+        );
+    }
+    return parts;
+}
+
+
+List<Integer> numbers = Collections.unmodifiableList(
+    Arrays.asList(5,3,1,2,9,5,0,7)
+);
+List<List<Integer>> parts = chopped(numbers, 3);
+System.out.println(parts); // prints "[[5, 3, 1], [2, 9, 5], [0, 7]]"
+parts.get(0).add(-1);
+System.out.println(parts); // prints "[[5, 3, 1, -1], [2, 9, 5], [0, 7]]"
+System.out.println(numbers); // prints "[5, 3, 1, 2, 9, 5, 0, 7]" (unmodified!)
+
+
+
+
+
+
+//how to delete an element from map in golang
+package main
+
+import (
+   "fmt"
+)
+
+func main() {
+   m := make(map[string]int)
+   m["mukul"] = 10
+   m["mayank"] = 9
+   m["deepak"] = 8
+
+   fmt.Println(m)
+
+   fmt.Println("Deleting the key named deepak from the map")
+
+   delete(m, "deepak")
+
+   fmt.Println(m)
+}
+
+
+
+//same code in java as well 
+
+// Java code to illustrate the remove() method
+import java.util.*;
+   
+public class Hash_Map_Demo {
+   public static void main(String[] args) {
+         
+      // Creating an empty HashMap
+      HashMap<Integer, String> hash_map = new HashMap<Integer, String>();
+   
+      // Mapping string values to int keys
+      hash_map.put(10, "Geeks");
+      hash_map.put(15, "4");
+      hash_map.put(20, "Geeks");
+      hash_map.put(25, "Welcomes");
+      hash_map.put(30, "You");
+  
+      // Displaying the HashMap
+      System.out.println("Initial Mappings are: " + hash_map);
+  
+      // Removing the new key mapping
+      String returned_value = (String)hash_map.remove(50);
+  
+      // Verifying the returned value
+      System.out.println("Returned value is: "+ returned_value);
+  
+      // Displaying the new map
+      System.out.println("New map is: "+ hash_map);
+   }
+}
+
