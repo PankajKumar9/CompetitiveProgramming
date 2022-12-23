@@ -1,0 +1,208 @@
+import java.util.*;
+import java.io.*;
+
+public class LC_0684_Redundant_Connection {
+    public static class Util<T> {
+
+        public String stringAL(ArrayList<T> x){
+            StringBuilder sb = new StringBuilder();
+            for(T t : x){
+                sb.append(t.toString()+" ");
+            }
+            if(x.size()== 0){
+                return "null";
+            }
+            return sb.toString();
+        }
+
+        public  ArrayList<Integer>[] DirectedAdj(int[][] edges,int n,boolean index0) {
+            ArrayList<Integer>[] al = new ArrayList[n]; 
+            System.out.println("n= "+n);
+            for (int i = 0; i < n; i++) {
+                al[i] = new ArrayList<Integer>();}
+                for(var i : edges) {
+                    if(index0){
+                    al[i[0]].add(i[1]);
+                   }else{
+                        al[i[0]-1].add(i[1]-1);
+                  
+                    }
+         
+                }
+            System.out.println("n= "+n);
+            return al;
+     
+     
+     
+        }
+        public  ArrayList<Integer>[] unDirectedAdj(int[][] edges,int n,boolean index0 ) {
+            if(n==-1){
+                int max = -1;
+                for(var t : edges){
+                    if(t[0]>max){
+                        max = t[0];
+                    }
+                    if(t[1]>max){
+                        max = t[1];
+                    }
+                }
+                    n=max;
+
+            }
+            ArrayList<Integer>[] al = new ArrayList[n]; 
+            System.out.println("n= "+n);
+            for (int i = 0; i < n; i++) {
+                al[i] = new ArrayList<Integer>();}
+            for(var i : edges) {
+                if(index0){
+                al[i[0]].add(i[1]);
+                al[i[1]].add(i[0]);}else{
+                    al[i[0]-1].add(i[1]-1);
+                    al[i[1]-1].add(i[0]-1);  
+                }
+     
+            }
+            System.out.println("n= "+n);
+            return al;
+     
+     
+     
+        }
+        public  ArrayList<Integer>[] revDirectedAdj(int[][] edges,int n,boolean index0) {
+            ArrayList<Integer>[] al = new ArrayList[n]; 
+            System.out.println("n= "+n);
+            for (int i = 0; i < n; i++) {
+                al[i] = new ArrayList<Integer>();}
+                for(var i : edges) {
+                    if(index0){
+                    al[i[1]].add(i[0]);
+                   }else{
+                        al[i[1]-1].add(i[0]-1);
+                  
+                    }
+         
+                }
+            System.out.println("n= "+n);
+            return al;
+     
+     
+     
+        }
+    
+    }
+
+
+
+
+
+
+
+
+    public static void main(String[] args) throws Exception {
+        System.out.println("It is a really good day to code");
+    }
+    public static int[] findRedundantConnection(int[][] edges) {
+         
+        var graph = unDirectedAdj(edges, edges.length);
+        boolean vis[] = new boolean[edges.length];
+        int[] prev = new int[edges.length];
+        Stack<Integer> st = new Stack<>();
+        st.push(0);
+        int curr = 0;
+        vis[0] = true;
+        int source = -1;
+        prev[curr] = -1;
+        int destination = 0;
+        while(!st.empty()){
+            curr = st.pop();
+            System.out.println("Curr value = "+curr);
+            for(var i : graph[curr]){
+                System.out.println("Its vis i = "+i);
+                if(vis[i] && i != prev[curr]){
+                    source = i;
+                      prev[i] = curr;
+                    st.push(i);
+                    break;
+                }
+                if(!vis[i]){
+                    vis[i]=true;
+                    prev[i] = curr;
+                      st.push(i);
+                    
+                }
+
+            }
+            if(source != -1){
+                break;
+            }
+
+        }
+        for(var i : graph[source]){
+            if(vis[i] && i != curr){
+                destination = i;
+                break;
+            }
+
+        }
+        System.out.println("Curr = "+curr+" Destination = "+destination+" surce = "+source);
+        List<Integer> path = new ArrayList<>();
+        path.add(st.pop());
+        boolean flag = true;
+        while(true){
+            path.add(source);
+            if(source==destination){
+                break;
+            }
+            source = prev[source];
+            
+            
+        }
+        boolean a = false;
+        boolean b = false;
+        path.add(path.get(0));
+        int[][] ed = new int[path.size()-1][2];
+        for(int i = 0;i<path.size()-1;i++){
+            ed[i][0] = path.get(i)+1;
+            ed[i][1] = path.get(i+1)+1;
+            
+            
+        }
+        for(int i = edges.length-1;i>0;i--){
+            
+            for(var rt : ed){
+                if(edges[i][0]==rt[0] && edges[i][1]==rt[1]){
+                    return edges[i];
+                }
+                 if(edges[i][1]==rt[0] && edges[i][0]==rt[1]){
+                    return edges[i];
+                }
+                
+            }
+            
+          
+
+        }
+
+        
+
+    System.out.println("PATH ARRAY + "+Arrays.toString(prev));
+
+        return new int[]{0};
+    }
+    public static ArrayList<Integer>[] unDirectedAdj(int[][] edges,int n) {
+        ArrayList<Integer>[] al = new ArrayList[n]; 
+     
+        for (int i = 0; i < n; i++) {
+            al[i] = new ArrayList<Integer>();}
+        for(var i : edges) {
+            al[i[0]-1].add(i[1]-1);
+            al[i[1]-1].add(i[0]-1);
+ 
+        }
+        
+        return al;
+ 
+ 
+ 
+    }
+}
