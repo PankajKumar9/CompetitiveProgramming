@@ -1,0 +1,13 @@
+{
+    "overrides": [
+      {
+        "files": "*.java",
+        "options": {
+          "parser": "java",
+          "tabWidth": 4,
+          "useTabs": false
+        }
+      }
+    ]
+  }
+  
